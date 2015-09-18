@@ -1,7 +1,8 @@
 describe("Order", function() {
-  it("should create a Order object with an empty array of pizzas", function() {
+  it("should create a Order object with an empty array of pizzas and a price of 0", function() {
     var order = new Order();
     expect(order.pizzas).to.eql([]);
+    expect(order.totalOrderPrice).to.equal(0)
   });
 
   it("lets pizzas be added to the order", function() {
@@ -9,6 +10,18 @@ describe("Order", function() {
     var pizza = {};
     order.addPizza(pizza);
     expect(order.pizzas).to.eql([pizza]);
+  });
+
+  it("calculates the price for pizzas in the order", function() {
+    var order = new Order();
+    var cheese = new Pizza("cheese", "small", "extraCheese");
+    var veggie = new Pizza("veggie", "personal");
+    cheese.calculatePrice();
+    veggie.calculatePrice();
+    order.addPizza(cheese);
+    order.addPizza(veggie);
+    order.calculateOrderPrice();
+    expect(order.totalOrderPrice).to.equal(8.00);
   });
 });
 
@@ -22,6 +35,7 @@ describe("Pizza", function() {
 
   it("should create create a method to calculatePrice", function() {
     var pizza = new Pizza("mushroom", "large", "extraCheese");
-    expect(pizza.calculatePrice()).to.equal(6.50);
+    pizza.calculatePrice();
+    expect(pizza.totalPrice).to.equal(6.50);
   });
 });
