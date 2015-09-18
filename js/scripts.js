@@ -65,12 +65,16 @@ $(document).ready(function() {
     $("#user-interface").empty();
   }
 
+  function emptyNewPizzaOption () {
+    $(".form-inline").remove();
+  }
+
   function renderNewPizzaBtn () {
     $("#user-interface").append("<button id='add-pizza' class='btn btn-primary'>Add a Pizza</button>");
     $("#add-pizza").on("click", function() {
       var exists = document.getElementById("adding-pizza-form");
       if (exists !== null) {
-        $('#pizzaModal').modal('show');
+        $("#pizzaModal").modal("show");
       } else {
         renderNewPizzaOption();
       }
@@ -83,7 +87,7 @@ $(document).ready(function() {
         "<h4>Current Total: $<span id='total-price'></span></h4>" +
         "<ul id='pizzas-list'></ul>" +
       "</div>" 
-    )
+    );
     $("#total-price").text(orderTotal);
   }
 
@@ -96,7 +100,7 @@ $(document).ready(function() {
     $("#pizzas-list").append(
         "<li>A <span id='pizza-size'>" + pizzaSize + "</span> <span id='pizza-type'>" + pizzaType + 
         "</span> <span id='pizza-cost'>$"+ pizzaCost +"</span></li>" 
-     )
+     );
   }
 
   function renderNewPizzaOption () {
@@ -129,7 +133,7 @@ $(document).ready(function() {
       "</div>" +
       "<button id='add-order' class='btn btn-success'>Add</button>" +
     "</div>"
-    ).insertBefore('#add-pizza');
+    ).insertBefore("#add-pizza");
     
     $("#add-order").on("click", function() {
       var selectedToppings = [];
@@ -144,29 +148,25 @@ $(document).ready(function() {
 
       var pizza = new Pizza(type, size);
 
-      if (selectedToppings !== undefined) {
-        selectedToppings.forEach(function(selectedTopping) {
-          pizza.toppings.push(selectedTopping);
-        });
-      }
+      selectedToppings.forEach(function(selectedTopping) {
+        pizza.toppings.push(selectedTopping);
+      });
 
-      console.log(pizza);
       pizza.calculatePrice();
       order.addPizza(pizza);
       order.calculateOrderPrice();
       renderSubTitle("A " + pizza.size + " " + pizza.type.toLowerCase() + " pizza was added!", "bg-success");
-      $(".form-inline").remove();
       updateCart(pizza);
+      emptyNewPizzaOption();
     });
   }
-
 
   function renderClearOrderBtn () {
     $("#user-interface").append("<button id='clear-order' class='btn btn-danger'>Junk Order</button>");
     $("#clear-order").on("click", function() {
       emptyUserInterface();
       renderOrderForm();
-      renderSubTitle("Your cart has been cleared!", "bg-danger")
+      renderSubTitle("Your cart has been cleared!", "bg-danger");
     });
   }
 
@@ -181,18 +181,4 @@ $(document).ready(function() {
     renderOrderForm();
     renderCart();
   });
-
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
