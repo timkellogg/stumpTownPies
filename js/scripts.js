@@ -50,7 +50,11 @@ Pizza.prototype.calculatePrice = function () {
 };
 
 $(document).ready(function() {
-  var order;
+  var order = new Order("Customer"),
+      orderTotal = 0,
+      pizzaSize = "",
+      pizzaType = "",
+      pizzaCost = "";
 
   function renderSubTitle (message) {
     $("#subtitle").text(message);
@@ -70,7 +74,22 @@ $(document).ready(function() {
   }
 
   function renderCart() {
-    $("#content").append();
+    $("#content").append(
+      "<div id='cart' class='container well'>" +
+        "<h4>Current Total: $<span id='total-price'>" + orderTotal + "</span></h4>" +
+        "<ul id='pizzas-list'></ul>" +
+      "</div>" 
+    )
+  }
+
+  function updateCart(pizza) {
+    pizzaSize = pizza.size;
+    pizzaType = pizza.type;
+    pizzaCost = pizza.totalPrice;
+    $("#pizzas-list").append(
+        "<li>A <span id='pizza-size'>" + pizzaSize + "</span><span id='pizza-type'>" + pizzaType + 
+        "</span> <span id='pizza-cost'>"+ pizzaCost +"</span></li>" 
+     )
   }
 
   function renderNewPizzaOption () {
@@ -107,24 +126,26 @@ $(document).ready(function() {
     
     $("#add-order").on("click", function() {
       // create a new pizza object and add it to order 
-      order = new Order("Customer");
+
       var toppings = [];
       var type = $("#pizza-type").val();
       var size = $("#pizza-size").val().toLowerCase();
+      console.log(size);
       if ( $("#extra-cheese:checked").val()  !== undefined ) { toppings.push("extraCheese"); }
       if ( $("#pepperoni:checked").val()     !== undefined ) { toppings.push("pepperoni");   }
       if ( $("#bacon:checked").val()         !== undefined ) { toppings.push("bacon");       }
       if ( $("#pinapple:checked").val()      !== undefined ) { toppings.push("pinapple");    }
       if ( $("#stuffed-crust:checked").val() !== undefined ) { toppings.push("stuffedCrust");}
 
+      var pizza = new Pizza(type, size, "cheese");
+      pizza.calculatePrice();
 
       renderSubTitle("Pizza Added!");
       $(".form-inline").empty();
-      renderCart();
+
     });
   }
 
-  var checkedValue = $('.messageCheckbox:checked').val();
 
   function renderClearOrderBtn () {
     $("#user-interface").append("<button id='clear-order' class='btn btn-danger'>Junk Order</button>");
@@ -140,10 +161,12 @@ $(document).ready(function() {
     renderSubTitle("Select Pizza Options:");
     renderNewPizzaBtn();
     renderClearOrderBtn();
+
   }
 
   $("#start-order").on("click", function() {
     renderOrderForm();
+    renderCart();
   });
 
 });
