@@ -70,7 +70,7 @@ $(document).ready(function() {
   }
 
   function renderNewPizzaBtn () {
-    $("#user-interface").append("<button id='add-pizza' class='btn btn-primary'>Add a Pizza</button>");
+    $("#user-interface").append("<button id='add-pizza' class='btn btn-primary'>Add a Pizza <span class='glyphicon glyphicon-plus'></span> </button>");
     $("#add-pizza").on("click", function() {
       var exists = document.getElementById("adding-pizza-form");
       if (exists !== null) {
@@ -81,9 +81,11 @@ $(document).ready(function() {
     });
   }
 
+  function emptyCheckoutModal () {
+    document.getElementById("checkoutModal").remove();
+  }
+
   function renderCheckoutModal() {
-    var exists = document.getElementById("checkoutModal");
-    if (exists) exists.remove();
     $("#content").append(
       "<div class='modal fade' id='checkoutModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>" +
         "<div class='modal-dialog' role='document'>" +
@@ -108,11 +110,14 @@ $(document).ready(function() {
       emptyCart();
       order = new Order();
       renderSubTitle("Thank you for your purchase!", "bg-success");
+      renderCart();
+      emptyCheckoutModal();
+
     });
   }
 
   function renderCheckoutBtn () {
-    $("#cart").append( "<div class='text-center'><button id='checkout' class='btn btn-primary btn-lg'>Checkout</button></div>");
+    $("#cart").append( "<div class='text-center'><button id='checkout' class='btn btn-primary btn-lg'>Checkout <span class='glyphicon glyphicon-shopping-cart'></span></button></div>");
     $("#checkout").on("click", function() {
       $("#checkoutModal").modal("show");
         renderCheckoutModal();
@@ -177,7 +182,7 @@ $(document).ready(function() {
        "<label class='checkbox-inline'><input type='checkbox' id='pinapple' value='pinapple'> Pinapple</label>" +
        "<label class='checkbox-inline'><input type='checkbox' id='stuffed-crust' value='stuffed-crust'> Stuffed Crust</label>" +
       "</div>" +
-      "<button id='add-order' class='btn btn-success'>Add</button>" +
+      "<button id='add-order' class='btn btn-success'>Add <span class='glyphicon glyphicon-ok'></span></button>" +
     "</div>"
     ).insertBefore("#add-pizza");
     
@@ -208,7 +213,7 @@ $(document).ready(function() {
   }
 
   function renderClearOrderBtn () {
-    $("#user-interface").append("<button id='clear-order' class='btn btn-danger'>Junk Order</button>");
+    $("#user-interface").append("<button id='clear-order' class='btn btn-danger'> Junk Order <span class='glyphicon glyphicon-trash'></span> </button>");
     $("#clear-order").on("click", function() {
       order = new Order();
       emptyCart();
