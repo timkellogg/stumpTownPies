@@ -1,7 +1,7 @@
 /* Images 
 ****************/
 body {
-  background: url('../public/pizza.jpeg') no-repeat center center fixed;
+  background: url('../public/pizza.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -29,7 +29,6 @@ h1 {
 	padding-left: 10px;
 	padding-right: 10px;
 }
-
 
 /* Forms 
 ****************/

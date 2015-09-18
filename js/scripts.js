@@ -87,7 +87,7 @@ $(document).ready(function() {
 
   function renderCheckoutModal() {
     $("#content").append(
-      "<div class='modal fade' id='checkoutModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>" +
+      "<div class='modal fade' id='checkoutModal' role='dialog' aria-labelledby='myModalLabel'>" +
         "<div class='modal-dialog' role='document'>" +
           "<div class='modal-content'>" +
             "<div class='modal-header'>" +
@@ -112,7 +112,6 @@ $(document).ready(function() {
       renderSubTitle("Thank you for your purchase!", "bg-success");
       renderCart();
       emptyCheckoutModal();
-
     });
   }
 
@@ -144,13 +143,13 @@ $(document).ready(function() {
 
   function updateCart(pizza) {
     orderTotal = order.totalOrderPrice;
-    $("#total-price").text( orderTotal );
+    $("#total-price").text((orderTotal).toFixed(2) );
     pizzaSize = pizza.size;
     pizzaType = pizza.type.toLowerCase();
     pizzaCost = pizza.totalPrice;
     $("#pizzas-list").append(
         "<li>A <span id='pizza-size'>" + pizzaSize + "</span> <span id='pizza-type'>" + pizzaType + 
-        "</span> <span id='pizza-cost'>$"+ pizzaCost +"</span></li>" 
+        "</span> <span id='pizza-cost'>$"+ (pizzaCost).toFixed(2) +"</span></li>" 
      );
   }
 
