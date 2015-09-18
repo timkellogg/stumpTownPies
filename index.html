@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link href="css/styles.css" rel="stylesheet" type="text/css">
   <script src="js/jquery-2.1.4.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="js/scripts.js"></script>
   <title>StumpTown Pies</title>
 </head>
@@ -18,7 +19,23 @@
       <button id="start-order" class="btn btn-primary btn-lg">Place an Order</button>
     </div>
 
-
+    <!-- Modal -->
+    <div class="modal fade" id="pizzaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Uh oh...</h4>
+          </div>
+          <div class="modal-body">
+            <p> Please finish the current pizza form before adding another!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>

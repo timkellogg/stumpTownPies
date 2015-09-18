@@ -57,7 +57,7 @@ $(document).ready(function() {
       pizzaCost = "";
 
   function renderSubTitle (message, styleClass) {
-    if (styleClass) { $("#subtitle").addClass(styleClass).fadeOut(2000); }
+    if (styleClass) { $("#subtitle").addClass(styleClass).show().fadeOut(2000); }
     $("#subtitle").text(message);
   }
 
@@ -67,10 +67,13 @@ $(document).ready(function() {
 
   function renderNewPizzaBtn () {
     $("#user-interface").append("<button id='add-pizza' class='btn btn-primary'>Add a Pizza</button>");
-    // if there's a form already, show a modal saying they have to add the pizza first 
-    // else render the new pizza option
     $("#add-pizza").on("click", function() {
-      renderNewPizzaOption();
+      var exists = document.getElementById("adding-pizza-form");
+      if (exists !== null) {
+        $('#pizzaModal').modal('show');
+      } else {
+        renderNewPizzaOption();
+      }
     });
   }
 
@@ -97,7 +100,7 @@ $(document).ready(function() {
   }
 
   function renderNewPizzaOption () {
-    $("<div class='form-inline' role='form'>" +
+    $("<div id='adding-pizza-form' class='form-inline' role='form'>" +
       "<div class='form-group'>" +
         "<label for='pizza-type'>Type</label>" +
         "<select class='form-control' id='pizza-type'>" +
