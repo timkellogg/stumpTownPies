@@ -18,10 +18,10 @@ Order.prototype.calculateOrderPrice = function () {
   this.totalOrderPrice = orderCost;
 };
 
-function Pizza (type, size, toppings) {
+function Pizza (type, size) {
   this.size = size, 
   this.type = type,
-  this.toppings = [toppings],
+  this.toppings = [],
   this.totalPrice = 0;
 }
 
@@ -88,14 +88,14 @@ $(document).ready(function() {
   }
 
   function updateCart(pizza) {
-    orderTotal += order.totalOrderPrice;
+    orderTotal = order.totalOrderPrice;
     $("#total-price").text( orderTotal );
     pizzaSize = pizza.size;
     pizzaType = pizza.type.toLowerCase();
     pizzaCost = pizza.totalPrice;
     $("#pizzas-list").append(
         "<li>A <span id='pizza-size'>" + pizzaSize + "</span> <span id='pizza-type'>" + pizzaType + 
-        "</span> <span id='pizza-cost'>$"+ pizzaCost +"0</span></li>" 
+        "</span> <span id='pizza-cost'>$"+ pizzaCost +"</span></li>" 
      )
   }
 
@@ -132,17 +132,25 @@ $(document).ready(function() {
     ).insertBefore('#add-pizza');
     
     $("#add-order").on("click", function() {
-      var toppings = [];
+      var selectedToppings = [];
       var type = $("#pizza-type").val();
       var size = $("#pizza-size").val().toLowerCase();
       
-      if ( $("#extra-cheese:checked").val()  !== undefined ) { toppings.push("extraCheese"); }
-      if ( $("#pepperoni:checked").val()     !== undefined ) { toppings.push("pepperoni");   }
-      if ( $("#bacon:checked").val()         !== undefined ) { toppings.push("bacon");       }
-      if ( $("#pinapple:checked").val()      !== undefined ) { toppings.push("pinapple");    }
-      if ( $("#stuffed-crust:checked").val() !== undefined ) { toppings.push("stuffedCrust");}
+      if ( $("#extra-cheese:checked").val()  !== undefined ) { selectedToppings.push("extraCheese"); }
+      if ( $("#pepperoni:checked").val()     !== undefined ) { selectedToppings.push("pepperoni");   }
+      if ( $("#bacon:checked").val()         !== undefined ) { selectedToppings.push("bacon");       }
+      if ( $("#pinapple:checked").val()      !== undefined ) { selectedToppings.push("pinapple");    }
+      if ( $("#stuffed-crust:checked").val() !== undefined ) { selectedToppings.push("stuffedCrust");}
 
-      var pizza = new Pizza(type, size, "cheese");
+      var pizza = new Pizza(type, size);
+
+      if (selectedToppings !== undefined) {
+        selectedToppings.forEach(function(selectedTopping) {
+          pizza.toppings.push(selectedTopping);
+        });
+      }
+
+      console.log(pizza);
       pizza.calculatePrice();
       order.addPizza(pizza);
       order.calculateOrderPrice();
