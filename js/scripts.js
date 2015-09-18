@@ -84,11 +84,11 @@ $(document).ready(function() {
         "<ul id='pizzas-list'></ul>" +
       "</div>" 
     )
-    $("#total-price").text(orderTotal)
+    $("#total-price").text(orderTotal);
   }
 
   function updateCart(pizza) {
-    orderTotal += pizza.totalPrice;
+    orderTotal += order.totalOrderPrice;
     $("#total-price").text( orderTotal );
     pizzaSize = pizza.size;
     pizzaType = pizza.type.toLowerCase();
@@ -144,6 +144,8 @@ $(document).ready(function() {
 
       var pizza = new Pizza(type, size, "cheese");
       pizza.calculatePrice();
+      order.addPizza(pizza);
+      order.calculateOrderPrice();
       renderSubTitle("A " + pizza.size + " " + pizza.type.toLowerCase() + " pizza was added!", "bg-success");
       $(".form-inline").remove();
       updateCart(pizza);
