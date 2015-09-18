@@ -76,19 +76,22 @@ $(document).ready(function() {
   function renderCart() {
     $("#content").append(
       "<div id='cart' class='container well'>" +
-        "<h4>Current Total: $<span id='total-price'>" + orderTotal + "</span></h4>" +
+        "<h4>Current Total: $<span id='total-price'></span></h4>" +
         "<ul id='pizzas-list'></ul>" +
       "</div>" 
     )
+    $("#total-price").text(orderTotal)
   }
 
   function updateCart(pizza) {
+    orderTotal += pizza.totalPrice;
+    $("#total-price").text( orderTotal );
     pizzaSize = pizza.size;
-    pizzaType = pizza.type;
+    pizzaType = pizza.type.toLowerCase();
     pizzaCost = pizza.totalPrice;
     $("#pizzas-list").append(
-        "<li>A <span id='pizza-size'>" + pizzaSize + "</span><span id='pizza-type'>" + pizzaType + 
-        "</span> <span id='pizza-cost'>"+ pizzaCost +"</span></li>" 
+        "<li>A <span id='pizza-size'>" + pizzaSize + "</span> <span id='pizza-type'>" + pizzaType + 
+        "</span> <span id='pizza-cost'>$"+ pizzaCost +"0</span></li>" 
      )
   }
 
@@ -140,9 +143,9 @@ $(document).ready(function() {
       var pizza = new Pizza(type, size, "cheese");
       pizza.calculatePrice();
 
-      renderSubTitle("Pizza Added!");
+      renderSubTitle("A " + pizza.size + " " + pizza.type.toLowerCase() + " pizza was added!");
       $(".form-inline").empty();
-
+      updateCart(pizza);
     });
   }
 
