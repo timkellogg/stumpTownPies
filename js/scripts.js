@@ -2,7 +2,7 @@
 
 function Order () {
   this.pizzas = [];
-  this.totalOrderPrice = 0
+  this.totalOrderPrice = 0;
 }
 
 Order.prototype.addPizza = function (pizza) {
@@ -21,22 +21,28 @@ function Pizza (type, size, toppings) {
   this.size = size, 
   this.type = type,
   this.toppings = [toppings],
-  this.totalPrice;
+  this.totalPrice = 0;
 }
 
 Pizza.prototype.calculatePrice = function () {
   var basePrice,
       toppingsPrice;
-  if (this.size === "personal") {
-    basePrice = 3.00;
-  } else if (this.size === "small") {
-    basePrice = 4.00;
-  } else if (this.size === "medium") {
-    basePrice = 5.00;
-  } else if (this.size === "large") {
-    basePrice = 6.00;
-  } else if (this.size === "huge") {
-    basePrice = 8.00;
+  switch(this.size) {
+    case "personal":
+      basePrice = 3;
+      break;
+    case "small":
+      basePrice = 4;
+      break; 
+    case "medium":
+      basePrice = 5;
+      break;
+    case "large":
+      basePrice = 6;
+      break;
+    case "huge":
+      basePrice = 8;
+      break;
   }
   toppingsPrice = this.toppings.length * 0.50;
   this.totalPrice = toppingsPrice + basePrice;
