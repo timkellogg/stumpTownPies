@@ -81,6 +81,11 @@ $(document).ready(function() {
     });
   }
 
+  function emptyCart() {
+    orderTotal = 0;
+    $("#cart").remove();
+  }
+
   function renderCart() {
     $("#content").append(
       "<div id='cart' class='container well'>" +
@@ -164,6 +169,9 @@ $(document).ready(function() {
   function renderClearOrderBtn () {
     $("#user-interface").append("<button id='clear-order' class='btn btn-danger'>Junk Order</button>");
     $("#clear-order").on("click", function() {
+      order = new Order();
+      emptyCart();
+      renderCart();
       emptyUserInterface();
       renderOrderForm();
       renderSubTitle("Your cart has been cleared!", "bg-danger");
