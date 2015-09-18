@@ -97,12 +97,18 @@ $(document).ready(function() {
               "<p>Thanks for ordering at StumptownPies! Note that it will take probably 15 minutes to arrive.</p>" + 
             "</div>" +
             "<div class='modal-footer'>" +
-              "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>" +
+              "<button id='reload' type='button' class='btn btn-primary' data-dismiss='modal'>Close</button>" +
             "</div>" +
           "</div>" +
         "</div>" +
       "</div>" 
     );
+    $("#reload").on("click", function() {
+      emptyNewPizzaOption();
+      emptyCart();
+      order = new Order();
+      renderSubTitle("Thank you for your purchase!", "bg-success");
+    });
   }
 
   function renderCheckoutBtn () {
