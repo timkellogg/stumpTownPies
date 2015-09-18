@@ -62,6 +62,8 @@ $(document).ready(function() {
 
   function renderNewPizzaBtn () {
     $("#user-interface").append("<button id='add-pizza' class='btn btn-primary'>Add a Pizza</button>");
+    // if there's a form already, show a modal saying they have to add the pizza first 
+    // else render the new pizza option
     $("#add-pizza").on("click", function() {
       renderNewPizzaOption();
     });
@@ -106,14 +108,23 @@ $(document).ready(function() {
     $("#add-order").on("click", function() {
       // create a new pizza object and add it to order 
       order = new Order("Customer");
+      var toppings = [];
       var type = $("#pizza-type").val();
-      console.log(type);
+      var size = $("#pizza-size").val().toLowerCase();
+      if ( $("#extra-cheese:checked").val()  !== undefined ) { toppings.push("extraCheese"); }
+      if ( $("#pepperoni:checked").val()     !== undefined ) { toppings.push("pepperoni");   }
+      if ( $("#bacon:checked").val()         !== undefined ) { toppings.push("bacon");       }
+      if ( $("#pinapple:checked").val()      !== undefined ) { toppings.push("pinapple");    }
+      if ( $("#stuffed-crust:checked").val() !== undefined ) { toppings.push("stuffedCrust");}
+
 
       renderSubTitle("Pizza Added!");
       $(".form-inline").empty();
       renderCart();
     });
   }
+
+  var checkedValue = $('.messageCheckbox:checked').val();
 
   function renderClearOrderBtn () {
     $("#user-interface").append("<button id='clear-order' class='btn btn-danger'>Junk Order</button>");
