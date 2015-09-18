@@ -1,7 +1,8 @@
 "use strict";
 
-function Order () {
+function Order (name) {
   this.pizzas = [];
+  this.name = name;
   this.totalOrderPrice = 0;
 }
 
@@ -47,3 +48,49 @@ Pizza.prototype.calculatePrice = function () {
   toppingsPrice = this.toppings.length * 0.50;
   this.totalPrice = toppingsPrice + basePrice;
 };
+
+$(document).ready(function() {
+
+  function renderSubTitle (message) {
+    $("#subtitle").text(message);
+  }
+
+  function emptyUserInterface () {
+    $("#user-interface").empty();
+  }
+
+  function renderNewPizzaBtn () {
+    $("#user-interface").append("<button id='add-pizza' class='btn btn-primary'>Add a Pizza</button>");
+    $("#add-pizza").on("click", function() {
+      renderNewPizzaOption();
+    });
+  }
+
+  function renderNewPizzaOption () {
+    $("<div class='row'>Pizza</div>").insertBefore('#add-pizza');
+  }
+
+  function renderOrderForm () {
+    emptyUserInterface();
+    renderSubTitle("Select Pizza Options:");
+    renderNewPizzaBtn();
+  }
+
+  $("#start-order").on("click", function() {
+    renderOrderForm();
+  });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+

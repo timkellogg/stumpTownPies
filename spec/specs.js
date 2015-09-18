@@ -1,6 +1,7 @@
 describe("Order", function() {
-  it("should create a Order object with an empty array of pizzas and a price of 0", function() {
-    var order = new Order();
+  it("should create a Order object with an empty array of pizzas, a price of 0 and a name", function() {
+    var order = new Order("Bob Jones");
+    expect(order.name).to.equal("Bob Jones");
     expect(order.pizzas).to.eql([]);
     expect(order.totalOrderPrice).to.equal(0)
   });
