@@ -50,6 +50,7 @@ Pizza.prototype.calculatePrice = function () {
 };
 
 $(document).ready(function() {
+  var order;
 
   function renderSubTitle (message) {
     $("#subtitle").text(message);
@@ -64,6 +65,10 @@ $(document).ready(function() {
     $("#add-pizza").on("click", function() {
       renderNewPizzaOption();
     });
+  }
+
+  function renderCart() {
+    $("#content").append();
   }
 
   function renderNewPizzaOption () {
@@ -97,6 +102,17 @@ $(document).ready(function() {
       "<button id='add-order' class='btn btn-success'>Add</button>" +
     "</div>"
     ).insertBefore('#add-pizza');
+    
+    $("#add-order").on("click", function() {
+      // create a new pizza object and add it to order 
+      order = new Order("Customer");
+      var type = $("#pizza-type").val();
+      console.log(type);
+
+      renderSubTitle("Pizza Added!");
+      $(".form-inline").empty();
+      renderCart();
+    });
   }
 
   function renderClearOrderBtn () {
@@ -104,6 +120,7 @@ $(document).ready(function() {
     $("#clear-order").on("click", function() {
       emptyUserInterface();
       renderOrderForm();
+      renderSubTitle("Cleared cart. Select New Options:")
     });
   }
 
