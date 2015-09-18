@@ -25,7 +25,7 @@ _StumpTown Pies is a front-end only ordering prototype for a pizza shop._
 * Testing: Mocha/Chai
 * Server: NA
 * Dependencies: None (loads via CDNs)
-* Front-End: Bootstrap/jQuery 
+* Front-End: Bootstrap 3.3.5/jQuery 2.1.4 
 
 ###	Legal
 
