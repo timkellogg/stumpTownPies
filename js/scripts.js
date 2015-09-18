@@ -112,7 +112,7 @@ $(document).ready(function() {
   }
 
   function renderCheckoutBtn () {
-    $("#cart").append( "<button id='checkout' class='btn btn-primary btn-lg'>Checkout</button>");
+    $("#cart").append( "<div class='text-center'><button id='checkout' class='btn btn-primary btn-lg'>Checkout</button></div>");
     $("#checkout").on("click", function() {
       $("#checkoutModal").modal("show");
         renderCheckoutModal();
@@ -127,8 +127,10 @@ $(document).ready(function() {
   function renderCart() {
     $("#content").append(
       "<div id='cart' class='container well'>" +
-        "<h4>Current Total: $<span id='total-price'></span></h4>" +
-        "<ul id='pizzas-list'></ul>" +
+        "<div class='row text-center'>" +
+          "<h4>Current Total: $<span id='total-price'></span></h4>" +
+          "<ul class='text-left' id='pizzas-list'></ul>" +
+        "</div>" +
       "</div>" 
     );
     $("#total-price").text(orderTotal);
