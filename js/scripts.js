@@ -56,7 +56,8 @@ $(document).ready(function() {
       pizzaType = "",
       pizzaCost = "";
 
-  function renderSubTitle (message) {
+  function renderSubTitle (message, styleClass) {
+    if (styleClass) { $("#subtitle").addClass(styleClass).fadeOut(2000); }
     $("#subtitle").text(message);
   }
 
@@ -128,12 +129,10 @@ $(document).ready(function() {
     ).insertBefore('#add-pizza');
     
     $("#add-order").on("click", function() {
-      // create a new pizza object and add it to order 
-
       var toppings = [];
       var type = $("#pizza-type").val();
       var size = $("#pizza-size").val().toLowerCase();
-      console.log(size);
+      
       if ( $("#extra-cheese:checked").val()  !== undefined ) { toppings.push("extraCheese"); }
       if ( $("#pepperoni:checked").val()     !== undefined ) { toppings.push("pepperoni");   }
       if ( $("#bacon:checked").val()         !== undefined ) { toppings.push("bacon");       }
@@ -142,9 +141,8 @@ $(document).ready(function() {
 
       var pizza = new Pizza(type, size, "cheese");
       pizza.calculatePrice();
-
-      renderSubTitle("A " + pizza.size + " " + pizza.type.toLowerCase() + " pizza was added!");
-      $(".form-inline").empty();
+      renderSubTitle("A " + pizza.size + " " + pizza.type.toLowerCase() + " pizza was added!", "bg-success");
+      $(".form-inline").remove();
       updateCart(pizza);
     });
   }
@@ -155,7 +153,7 @@ $(document).ready(function() {
     $("#clear-order").on("click", function() {
       emptyUserInterface();
       renderOrderForm();
-      renderSubTitle("Cleared cart. Select New Options:")
+      renderSubTitle("Your cart has been cleared!", "bg-danger")
     });
   }
 
@@ -164,7 +162,6 @@ $(document).ready(function() {
     renderSubTitle("Select Pizza Options:");
     renderNewPizzaBtn();
     renderClearOrderBtn();
-
   }
 
   $("#start-order").on("click", function() {
