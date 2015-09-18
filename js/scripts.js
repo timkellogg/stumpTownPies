@@ -81,6 +81,38 @@ $(document).ready(function() {
     });
   }
 
+  function renderCheckoutModal() {
+    var exists = document.getElementById("checkoutModal");
+    if (exists) exists.remove();
+    $("#content").append(
+      "<div class='modal fade' id='checkoutModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel'>" +
+        "<div class='modal-dialog' role='document'>" +
+          "<div class='modal-content'>" +
+            "<div class='modal-header'>" +
+              "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
+              "<h4 class='modal-title text-center' id='myModalLabel'>Checkout</h4>" +
+            "</div>" +
+            "<div class='modal-body'>" +
+              "<h5>Total: $" + (orderTotal).toFixed(2) + "</h5>" + 
+              "<p>Thanks for ordering at StumptownPies! Note that it will take probably 15 minutes to arrive.</p>" + 
+            "</div>" +
+            "<div class='modal-footer'>" +
+              "<button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>" +
+            "</div>" +
+          "</div>" +
+        "</div>" +
+      "</div>" 
+    );
+  }
+
+  function renderCheckoutBtn () {
+    $("#cart").append( "<button id='checkout' class='btn btn-primary btn-lg'>Checkout</button>");
+    $("#checkout").on("click", function() {
+      $("#checkoutModal").modal("show");
+        renderCheckoutModal();
+    });
+  }
+
   function emptyCart() {
     orderTotal = 0;
     $("#cart").remove();
@@ -94,6 +126,7 @@ $(document).ready(function() {
       "</div>" 
     );
     $("#total-price").text(orderTotal);
+    renderCheckoutBtn();
   }
 
   function updateCart(pizza) {
